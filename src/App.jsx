@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import Header from "./components/Header/Header.jsx";
+import CodeDiff from "./components/CodeDiff/CodeDiff.jsx";
+import PieChartDashboard from "./components/Dashboard/PieChartDashboard.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeTab, setActiveTab] = useState("tab1");
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div style={{ width: "100%", minHeight: "100vh" }}>
+      <Header />
+
+      <main style={{ padding: "24px" }}>
+        {/* Tab Navigation */}
+        <div style={{ display: "flex", gap: "12px", marginBottom: "20px" }}>
+          <button
+            className={`tab-button ${activeTab === "tab1" ? "active" : ""}`}
+            onClick={() => setActiveTab("tab1")}
+          >
+            Code Diff
+          </button>
+          <button
+            className={`tab-button ${activeTab === "tab2" ? "active" : ""}`}
+            onClick={() => setActiveTab("tab2")}
+          >
+            Frequency Dashboard
+          </button>
+        </div>
+
+        {/* Tab Content */}
+        <div className="tab-content">
+          {activeTab === "tab1" && <CodeDiff/>}
+          {activeTab === "tab2" && <PieChartDashboard/>}
+        </div>
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
